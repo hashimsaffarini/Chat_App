@@ -1,4 +1,3 @@
-import 'package:chat_app/views/pages/register_page.dart';
 import 'package:chat_app/views/widgets/custom_button.dart';
 import 'package:chat_app/views/widgets/custom_text_filed.dart';
 import 'package:flutter/material.dart';
@@ -73,12 +72,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RegisterPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, 'RegisterPage');
                   },
                   child: const Text(
                     'Register',
