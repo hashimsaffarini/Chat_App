@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
-class CustomTextFiled extends StatelessWidget {
+class CustomTextFormFiled extends StatelessWidget {
   final String? hintText;
   final Function(String)? onChanged;
-  const CustomTextFiled({super.key, this.hintText, this.onChanged});
+  const CustomTextFormFiled({super.key, this.hintText, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please enter $hintText';
+        }
+        return null;
+      },
       onChanged: onChanged,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
