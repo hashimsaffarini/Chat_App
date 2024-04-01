@@ -1,4 +1,5 @@
 import 'package:chat_app/firebase_options.dart';
+import 'package:chat_app/views/pages/chat_page.dart';
 import 'package:chat_app/views/pages/login_page.dart';
 import 'package:chat_app/views/pages/register_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,6 +22,7 @@ class ChatApp extends StatelessWidget {
       routes: {
         'LoginPage': (context) => const LoginPage(),
         RegisterPage.registerRoute: (context) => const RegisterPage(),
+        ChatPage.chatRoute: (context) => const ChatPage(),
       },
       title: 'Scholar Chat App',
       debugShowCheckedModeBanner: false,

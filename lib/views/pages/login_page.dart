@@ -1,4 +1,5 @@
 import 'package:chat_app/constants.dart';
+import 'package:chat_app/views/pages/chat_page.dart';
 import 'package:chat_app/views/pages/register_page.dart';
 import 'package:chat_app/views/widgets/custom_button.dart';
 import 'package:chat_app/views/widgets/custom_text_filed.dart';
@@ -88,11 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                         });
                         try {
                           await loginUser();
-                          scaffoldMessenger.showSnackBar(
-                            const SnackBar(
-                              content: Text('Successfully logged in!'),
-                            ),
-                          );
+                          Navigator.pushNamed(context, ChatPage.chatRoute);
                         } on FirebaseAuthException catch (e) {
                           String message = '';
                           if (e.code == 'user-not-found') {
@@ -143,7 +140,9 @@ class _LoginPageState extends State<LoginPage> {
                       TextButton(
                         onPressed: () {
                           Navigator.pushNamed(
-                              context, RegisterPage.registerRoute);
+                            context,
+                            RegisterPage.registerRoute,
+                          );
                         },
                         child: const Text(
                           'Register',

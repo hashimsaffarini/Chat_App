@@ -1,4 +1,5 @@
 import 'package:chat_app/constants.dart';
+import 'package:chat_app/views/pages/chat_page.dart';
 import 'package:chat_app/views/widgets/custom_button.dart';
 import 'package:chat_app/views/widgets/custom_text_filed.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -98,11 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         });
                         try {
                           await registerUser();
-                          scaffoldMessenger.showSnackBar(
-                            const SnackBar(
-                              content: Text('User Registered Successfully'),
-                            ),
-                          );
+                          Navigator.pushNamed(context, ChatPage.chatRoute);
                         } on FirebaseAuthException catch (e) {
                           String message = '';
                           if (e.code == 'weak-password') {
