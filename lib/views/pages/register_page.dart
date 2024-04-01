@@ -99,7 +99,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         });
                         try {
                           await registerUser();
-                          Navigator.pushNamed(context, ChatPage.chatRoute);
+                          Navigator.pushNamed(context, ChatPage.chatRoute,
+                              arguments: email);
                         } on FirebaseAuthException catch (e) {
                           String message = '';
                           if (e.code == 'weak-password') {
