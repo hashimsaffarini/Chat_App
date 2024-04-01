@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 class CustomTextFormFiled extends StatelessWidget {
   final String? hintText;
   final Function(String)? onChanged;
-  const CustomTextFormFiled({super.key, this.hintText, this.onChanged});
+  final bool? securedPassword;
 
+  const CustomTextFormFiled({
+    super.key,
+    this.hintText,
+    this.onChanged,
+    this.securedPassword = false,
+  });
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: securedPassword!,
       validator: (value) {
         if (value!.isEmpty) {
           return 'Please enter $hintText';

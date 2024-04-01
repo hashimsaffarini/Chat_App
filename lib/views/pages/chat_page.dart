@@ -21,8 +21,10 @@ class _ChatPageState extends State<ChatPage> {
       FirebaseFirestore.instance.collection('messages');
   @override
   Widget build(BuildContext context) {
+    String email = ModalRoute.of(context)!.settings.arguments as String;
+
     return StreamBuilder<QuerySnapshot>(
-        stream: messages.orderBy('createdAt').snapshots(),
+        stream: messages.orderBy('createdAt', descending: true).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Message> messagesList = [];
@@ -46,7 +48,7 @@ class _ChatPageState extends State<ChatPage> {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -56,12 +58,17 @@ class _ChatPageState extends State<ChatPage> {
                 children: [
                   Expanded(
                     child: ListView.builder(
+                      reverse: true,
                       controller: conroller,
                       itemCount: messagesList.length,
                       itemBuilder: (context, index) {
-                        return ChatBubble(
-                          message: messagesList[index].message.toString(),
-                        );
+                        return messagesList[index].id == email
+                            ? ChatBubble(
+                                message: messagesList[index].message!,
+                              )
+                            : ChatBubbleForFriend(
+                                message: messagesList[index].message!,
+                              );
                       },
                     ),
                   ),
@@ -71,11 +78,15 @@ class _ChatPageState extends State<ChatPage> {
                       controller: controller,
                       onSubmitted: (value) {
                         messages.add(
-                          {'message': value, 'createdAt': DateTime.now()},
+                          {
+                            'message': value,
+                            'createdAt': DateTime.now(),
+                            'id': email,
+                          },
                         );
                         controller.clear();
                         conroller.animateTo(
-                          conroller.position.maxScrollExtent,
+                          0,
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.fastOutSlowIn,
                         );
@@ -86,7 +97,8 @@ class _ChatPageState extends State<ChatPage> {
                             messages.add(
                               {
                                 'message': controller.text,
-                                'createdAt': DateTime.now()
+                                'createdAt': DateTime.now(),
+                                'id': email,
                               },
                             );
                             controller.clear();

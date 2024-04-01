@@ -72,6 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                   CustomTextFormFiled(
+                    securedPassword: true,
                     onChanged: (value) {
                       password = value;
                     },
@@ -89,7 +90,11 @@ class _LoginPageState extends State<LoginPage> {
                         });
                         try {
                           await loginUser();
-                          Navigator.pushNamed(context, ChatPage.chatRoute);
+                          Navigator.pushNamed(
+                            context,
+                            ChatPage.chatRoute,
+                            arguments: email,
+                          );
                         } on FirebaseAuthException catch (e) {
                           String message = '';
                           if (e.code == 'user-not-found') {
