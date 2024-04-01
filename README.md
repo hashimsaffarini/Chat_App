@@ -1,7 +1,7 @@
 # Chat App
 
 ## Overview
-Our Chat App is a real-time messaging platform built with Flutter, enabling seamless communication across iOS and Android devices. Designed for both personal and group chats, it provides a secure and intuitive interface for users to connect and share.
+Chat App is a real-time messaging platform built with Flutter, enabling seamless communication across iOS and Android devices. Designed for both personal and group chats, it provides a secure and intuitive interface for users to connect and share.
 
 ## Features
 - **Real-Time Messaging:** Instantly send and receive messages.
