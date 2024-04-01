@@ -7,8 +7,6 @@ Our Chat App is a real-time messaging platform built with Flutter, enabling seam
 - **Real-Time Messaging:** Instantly send and receive messages.
 - **Cross-Platform:** Fully functional on both iOS and Android.
 - **User Authentication:** Secure login and registration process.
-- **Group Chats:** Create groups for family, friends, or teams.
-- **Media Sharing:** Share photos and files effortlessly.
 
 ## Getting Started
 
