@@ -1,5 +1,4 @@
 import 'package:chat_app/constants.dart';
-import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/views/widgets/custom_button.dart';
 import 'package:chat_app/views/widgets/custom_text_filed.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -91,30 +90,50 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   CustomButton(
                     onPressed: () async {
+                      final scaffoldMessenger = ScaffoldMessenger.of(context);
+
                       if (formKey.currentState!.validate()) {
-                        isLoading = true;
-                        setState(() {});
+                        setState(() {
+                          isLoading = true;
+                        });
                         try {
                           await registerUser();
-
-                          showSnackBar(context, 'Successfully registered!');
+                          scaffoldMessenger.showSnackBar(
+                            const SnackBar(
+                              content: Text('User Registered Successfully'),
+                            ),
+                          );
                         } on FirebaseAuthException catch (e) {
-                          String? messege;
+                          String message = '';
                           if (e.code == 'weak-password') {
-                            messege = 'The password provided is too weak.';
+                            message = 'The password provided is too weak.';
                           } else if (e.code == 'email-already-in-use') {
-                            messege =
+                            message =
                                 'The account already exists for that email.';
+                          } else {
+                            message = e.message ?? 'An unknown error occurred.';
                           }
-                          showSnackBar(context, messege);
+                          scaffoldMessenger.showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                            ),
+                          );
                         } catch (e) {
-                          showSnackBar(context, e.toString());
+                          scaffoldMessenger.showSnackBar(
+                            SnackBar(
+                              content: Text(e.toString()),
+                            ),
+                          );
                         }
-                        isLoading = false;
-
-                        setState(() {});
+                        setState(() {
+                          isLoading = false;
+                        });
                       } else {
-                        showSnackBar(context, 'Please enter valid data');
+                        scaffoldMessenger.showSnackBar(
+                          const SnackBar(
+                            content: Text('Please enter valid data'),
+                          ),
+                        );
                       }
                     },
                     text: 'REGISTER',

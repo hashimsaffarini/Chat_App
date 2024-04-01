@@ -1,5 +1,4 @@
 import 'package:chat_app/constants.dart';
-import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/views/pages/register_page.dart';
 import 'package:chat_app/views/widgets/custom_button.dart';
 import 'package:chat_app/views/widgets/custom_text_filed.dart';
@@ -82,29 +81,49 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   CustomButton(
                     onPressed: () async {
+                      final scaffoldMessenger = ScaffoldMessenger.of(context);
                       if (formKey.currentState!.validate()) {
                         setState(() {
                           isLoading = true;
                         });
                         try {
                           await loginUser();
-                          showSnackBar(context, 'Login Successful');
+                          scaffoldMessenger.showSnackBar(
+                            const SnackBar(
+                              content: Text('Successfully logged in!'),
+                            ),
+                          );
                         } on FirebaseAuthException catch (e) {
-                          String? message;
+                          String message = '';
                           if (e.code == 'user-not-found') {
                             message = 'No user found for that email.';
                           } else if (e.code == 'wrong-password') {
                             message = 'Wrong password provided for that user.';
+                          } else {
+                            message = e.message ??
+                                'An error occurred. Please try again.';
                           }
-                          showSnackBar(context, message);
+                          scaffoldMessenger.showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                            ),
+                          );
                         } catch (e) {
-                          showSnackBar(context, e.toString());
+                          scaffoldMessenger.showSnackBar(
+                            SnackBar(
+                              content: Text(e.toString()),
+                            ),
+                          );
                         }
                         setState(() {
                           isLoading = false;
                         });
                       } else {
-                        showSnackBar(context, 'Please enter valid data');
+                        scaffoldMessenger.showSnackBar(
+                          const SnackBar(
+                            content: Text('Please enter valid data'),
+                          ),
+                        );
                       }
                     },
                     text: 'LOGIN',
