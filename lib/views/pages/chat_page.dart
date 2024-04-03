@@ -102,11 +102,11 @@ class _ChatPageState extends State<ChatPage> {
                               },
                             );
                             controller.clear();
-                             conroller.animateTo(
-                          0,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.fastOutSlowIn,
-                        );
+                            conroller.animateTo(
+                              0,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.fastOutSlowIn,
+                            );
                           },
                           icon: const Icon(
                             Icons.send,
